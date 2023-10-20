@@ -45,16 +45,8 @@ namespace FirstDecisionDesafioMoises.Repository
         {
             PessoaModel pessoaPorId = await BuscarPorId(id) ?? 
                                       throw new ApplicationException($"Pessoa para o ID: { id } não foi encontrada na base de dados.");
-            pessoaPorId.Nome = pessoa.Nome;
-            pessoaPorId.Sobrenome = pessoa.Sobrenome;
-            pessoaPorId.Telefone = pessoa.Telefone;
-            pessoaPorId.CEP = pessoa.CEP;
-            pessoaPorId.Cidade = pessoa.Cidade;
-            pessoaPorId.CPFCNPJ = pessoa.CPFCNPJ;
-            pessoaPorId.DataNascimento = pessoa.DataNascimento;
-            pessoaPorId.Email = pessoa.Email;
-            pessoaPorId.Endereco = pessoa.Endereco;
-            pessoaPorId.Estado = pessoa.Estado;
+
+            pessoa.CopyMembersTo(pessoaPorId);
 
             this.dbContext.Pessoas.Update(pessoaPorId);
             await this.dbContext.SaveChangesAsync();
