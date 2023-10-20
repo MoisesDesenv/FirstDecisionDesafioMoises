@@ -1,5 +1,5 @@
-﻿using FirstDecisionDesafioMoises.Infraestructure.Validators.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FirstDecisionDesafioMoises.Infraestructure.Validators.Interfaces;
 
 namespace FirstDecisionDesafioMoises.Models.Interfaces
 {
