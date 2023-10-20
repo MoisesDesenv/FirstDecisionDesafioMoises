@@ -22,3 +22,6 @@ OBS: Os testes unitários foram extremamentes pontuais, mostrando de uma forma '
 cobertura poderia (deveria) ser maior (cobrindo todo o projeto, não só a model), mas o intuito do teste é mostrar o máximo das habilidades e 
 conhecimentos possíveis. Aproveitei o tempo para demonstrar algumas particularidades não requisitadas 
 porém, se fizeram essenciais ao projeto.
+
+
+ESTOU COM PROBLEMAS PARA ATUALIZAR O GIT COM A FINALIZAÇÃO DO PROJETO. OU SEJA, ELE AINDA ESTÁ INCOMPLETO
