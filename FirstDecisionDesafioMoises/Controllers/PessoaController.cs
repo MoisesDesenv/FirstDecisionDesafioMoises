@@ -1,8 +1,8 @@
-﻿using FirstDecisionDesafioMoises.Models.Classes;
-using FirstDecisionDesafioMoises.Repository.Interfaces;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using FirstDecisionDesafioMoises.Models.Classes;
+using FirstDecisionDesafioMoises.Repository.Interfaces;
 
 namespace FirstDecisionDesafioMoises.Controllers
 {
