@@ -19,6 +19,6 @@ comunicação com o banco de dados.
 R: Capturando o erro (SqlException somente) com try-catch, dando o devido direcionamento às excessões.
 
 OBS: Os testes unitários foram extremamentes pontuais, mostrando de uma forma 'demonstrativa' de uso. A 
-cobertura poderia (deveria) ser maior, mas o intuito do teste é mostrar o máximo das habilidades e 
+cobertura poderia (deveria) ser maior (cobrindo todo o projeto, não só a model), mas o intuito do teste é mostrar o máximo das habilidades e 
 conhecimentos possíveis. Aproveitei o tempo para demonstrar algumas particularidades não requisitadas 
 porém, se fizeram essenciais ao projeto.
