@@ -16,7 +16,7 @@ namespace FirstDecisionDesafioMoises.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer(
-                "Server = localhost;" +
+                "Server = ZIZOINFO6;" +
                 "DataBase = teste;" +
                 "User Id = sa;" +
                 "Password=12345678"
