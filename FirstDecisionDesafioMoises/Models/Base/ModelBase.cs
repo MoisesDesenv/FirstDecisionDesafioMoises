@@ -1,5 +1,4 @@
-﻿using FirstDecisionDesafioMoises.Infraestructure.Validators;
-using FirstDecisionDesafioMoises.Infraestructure.Validators.Classes;
+﻿using FirstDecisionDesafioMoises.Infraestructure.Validators.Classes;
 using FirstDecisionDesafioMoises.Infraestructure.Validators.Interfaces;
 using FirstDecisionDesafioMoises.Models.Interfaces;
 using System.Collections.Generic;

@@ -1,7 +1,6 @@
 ﻿using FirstDecisionDesafioMoises.Models.Classes;
 using FirstDecisionDesafioMoises.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,10 +12,10 @@ namespace FirstDecisionDesafioMoises.Controllers
     {
         private readonly IPessoaRepository pessoaRepository;
 
-        //public PessoaController(IPessoaRepository pessoaRepository)
-        //{
-        //    this.pessoaRepository = pessoaRepository;
-        //}
+        public PessoaController(IPessoaRepository pessoaRepository)
+        {
+            this.pessoaRepository = pessoaRepository;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PessoaModel>>> BuscarTodasPessoas()

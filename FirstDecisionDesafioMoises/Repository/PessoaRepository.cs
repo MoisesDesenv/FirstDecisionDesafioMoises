@@ -11,13 +11,13 @@ namespace FirstDecisionDesafioMoises.Repository
     public class PessoaRepository : IPessoaRepository
     {
         #region Fields
-        private readonly TasksDBContext dbContext;
+        private readonly ConnectionContext dbContext;
         #endregion
 
         #region Constructors
-        public PessoaRepository(TasksDBContext tasksCBContext)
+        public PessoaRepository(ConnectionContext dbContext)
         {
-            this.dbContext = tasksCBContext;
+            this.dbContext = dbContext;
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace FirstDecisionDesafioMoises.Repository
             pessoaPorId.Telefone = pessoa.Telefone;
             pessoaPorId.CEP = pessoa.CEP;
             pessoaPorId.Cidade = pessoa.Cidade;
-            pessoaPorId.CpfCnpj = pessoa.CpfCnpj;
+            pessoaPorId.CPFCNPJ = pessoa.CPFCNPJ;
             pessoaPorId.DataNascimento = pessoa.DataNascimento;
             pessoaPorId.Email = pessoa.Email;
             pessoaPorId.Endereco = pessoa.Endereco;

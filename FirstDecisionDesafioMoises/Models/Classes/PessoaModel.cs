@@ -2,11 +2,14 @@
 using FirstDecisionDesafioMoises.Models.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FirstDecisionDesafioMoises.Models.Classes
 {
+    [Table("Pessoa")]
     public class PessoaModel : ModelBase
     {
+        [Key]
         public int ID { get; set; }
         
         [Required]
@@ -39,6 +42,6 @@ namespace FirstDecisionDesafioMoises.Models.Classes
         
         [MaxLength(14)]
         [CpfCnpjValido]
-        public string CpfCnpj { get; set; }
+        public string CPFCNPJ { get; set; }
     }
 }
