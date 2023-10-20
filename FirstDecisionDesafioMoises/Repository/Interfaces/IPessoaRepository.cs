@@ -10,6 +10,6 @@ namespace FirstDecisionDesafioMoises.Repository.Interfaces
         Task<PessoaModel> BuscarPorId(int id);
         Task<PessoaModel> Adicionar(PessoaModel pessoa);
         Task<PessoaModel> Atualizar(PessoaModel pessoa, int id);
-        Task<bool> Apagar(int id);
+        Task<bool> Deletar(int id);
     }
 }

@@ -13,17 +13,13 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
         #endregion
 
         #region Properties
-        public bool RequiredField { get; set; }
         public override bool RequiresValidationContext => true;
         #endregion
 
         #region Constructors
 
-        public EmailValidoAttribute(bool requiredField = false)
-            : base()
-        {
-            this.RequiredField = requiredField;
-        }
+        public EmailValidoAttribute()
+            : base() { }
 
         #endregion
 
@@ -33,17 +29,10 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
             if (validationContext == null)
                 throw new ArgumentNullException(nameof(validationContext));
 
-            if (this.RequiredField && value == null)
-                return new ValidationResult(this.FormatErrorMessage("E-mail é um campo obrigatório"), new[] { validationContext.DisplayName });
-
-            if (value is not string email)
-                throw new ApplicationException("Tipo de dados do e-mail inesperado. O tipo correto é string");
-
-            if (this.RequiredField && string.IsNullOrWhiteSpace(email))
-                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj é um campo obrigatório"), new[] { validationContext.DisplayName });
+            string email = value as string;
 
             if (!this.EmailIsValid(email))
-                return new ValidationResult(this.FormatErrorMessage("E-mail inválido"), new[] { validationContext.DisplayName });
+                return new ValidationResult(this.FormatErrorMessage("E-mail"), new[] { validationContext.DisplayName });
 
             return ValidationResult.Success;
         }
@@ -54,7 +43,7 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
         {
             var regex = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/";
 
-            return Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+            return !string.IsNullOrWhiteSpace(email) && Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
         }
         #endregion
     }

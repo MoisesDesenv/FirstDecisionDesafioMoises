@@ -1,10 +1,10 @@
-﻿using FirstDecisionDesafioMoises.Data;
+﻿using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using FirstDecisionDesafioMoises.Data;
 using FirstDecisionDesafioMoises.Models.Classes;
 using FirstDecisionDesafioMoises.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FirstDecisionDesafioMoises.Repository
 {
@@ -30,12 +30,10 @@ namespace FirstDecisionDesafioMoises.Repository
             return pessoa;
         }
 
-        public async Task<bool> Apagar(int id)
+        public async Task<bool> Deletar(int id)
         {
-            PessoaModel pessoaPorId = await BuscarPorId(id);
-
-            if (pessoaPorId == null)
-                throw new ApplicationException($"Pessoa para o ID: { id } não foi encontrada na base de dados.");
+            PessoaModel pessoaPorId = await BuscarPorId(id) ??
+                                      throw new ApplicationException($"Pessoa para o ID: { id } não foi encontrada na base de dados.");
 
             this.dbContext.Pessoas.Remove(pessoaPorId);
             await this.dbContext.SaveChangesAsync();
@@ -45,11 +43,8 @@ namespace FirstDecisionDesafioMoises.Repository
 
         public async Task<PessoaModel> Atualizar(PessoaModel pessoa, int id)
         {
-            PessoaModel pessoaPorId = await BuscarPorId(id);
-
-            if(pessoaPorId == null)
-                throw new ApplicationException($"Pessoa para o ID: { id } não foi encontrada na base de dados.");
-
+            PessoaModel pessoaPorId = await BuscarPorId(id) ?? 
+                                      throw new ApplicationException($"Pessoa para o ID: { id } não foi encontrada na base de dados.");
             pessoaPorId.Nome = pessoa.Nome;
             pessoaPorId.Sobrenome = pessoa.Sobrenome;
             pessoaPorId.Telefone = pessoa.Telefone;
@@ -62,7 +57,7 @@ namespace FirstDecisionDesafioMoises.Repository
             pessoaPorId.Estado = pessoa.Estado;
 
             this.dbContext.Pessoas.Update(pessoaPorId);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
 
             return pessoaPorId;
         }

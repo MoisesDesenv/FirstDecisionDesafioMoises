@@ -34,13 +34,13 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
                 throw new ArgumentNullException(nameof(validationContext));
 
             if (this.RequiredField && value == null)
-                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj é um campo obrigatório"), new[] { validationContext.DisplayName });
+                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
 
             if (value is not string cpfCnpj)
                 throw new ApplicationException("Tipo de dados Cpf/Cnpj inesperado. O tipo correto é string");
 
             if (this.RequiredField && string.IsNullOrWhiteSpace(cpfCnpj))
-                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj é um campo obrigatório"), new[] { validationContext.DisplayName });
+                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
 
             string cpf = this.ObterCpf(cpfCnpj);
 
@@ -50,7 +50,7 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
             bool cnpjValido = this.ValidarCnpj(cnpj);
 
             if (cpfValido && cnpjValido)
-                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj inválido"), new[] { validationContext.DisplayName });
+                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
 
             return ValidationResult.Success;
         }
