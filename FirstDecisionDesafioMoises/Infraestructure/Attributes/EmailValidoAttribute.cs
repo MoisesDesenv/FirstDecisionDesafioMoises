@@ -41,9 +41,9 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
         #region PrivateMethods
         private bool EmailIsValid(string email)
         {
-            var regex = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/";
-
-            return !string.IsNullOrWhiteSpace(email) && Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(email ?? string.Empty);
         }
         #endregion
     }

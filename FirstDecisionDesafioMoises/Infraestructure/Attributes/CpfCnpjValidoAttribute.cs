@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirstDecisionDesafioMoises.Infraestructure.Extensions;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
@@ -9,7 +10,6 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
     {
         #region Constants
         private const int NUMERO_CARACTERE_CPF = 11;
-        private const int NUMERO_CARACTERE_CNPJ = 14;
         #endregion
 
         #region Properties
@@ -36,11 +36,15 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
             if (this.RequiredField && value == null)
                 return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
 
-            if (value is not string cpfCnpj)
-                throw new ApplicationException("Tipo de dados Cpf/Cnpj inesperado. O tipo correto é string");
+            string cpfCnpj = value as string;
 
-            if (this.RequiredField && string.IsNullOrWhiteSpace(cpfCnpj))
-                return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
+            if (string.IsNullOrWhiteSpace(cpfCnpj))
+            {
+                if (this.RequiredField)
+                    return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
+
+                return ValidationResult.Success;
+            }
 
             string cpf = this.ObterCpf(cpfCnpj);
 
@@ -49,7 +53,7 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
             bool cpfValido = this.ValidarCpf(cpf);
             bool cnpjValido = this.ValidarCnpj(cnpj);
 
-            if (cpfValido && cnpjValido)
+            if (!cpfValido && !cnpjValido)
                 return new ValidationResult(this.FormatErrorMessage("Cpf/Cnpj"), new[] { validationContext.DisplayName });
 
             return ValidationResult.Success;
@@ -69,7 +73,7 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
             int soma;
             int resto;
 
-            cpf = this.RemoverMascaraCpfCnpj(cpf);
+            cpf = cpf.SomenteNumeros();
 
             if (cpf.Length != 11)
                 return false;
@@ -109,7 +113,7 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
             int resto;
             string digito;
             string tempCnpj;
-            cnpj = this.RemoverMascaraCpfCnpj(cnpj);
+            cnpj = cnpj.SomenteNumeros();
 
             if (cnpj.Length != 14)
                 return false;
@@ -140,30 +144,16 @@ namespace FirstDecisionDesafioMoises.Infraestructure.Attributes
 
         private string ObterCpf(string cpfCnpj)
         {
-            if (cpfCnpj == null)
-                throw new ArgumentNullException(nameof(cpfCnpj));
+            string cpfCnpj_SemMascara = cpfCnpj?.SomenteNumeros();
 
-            string cpfCnpj_SemMascara = RemoverMascaraCpfCnpj(cpfCnpj);
-
-            return cpfCnpj_SemMascara.Length == NUMERO_CARACTERE_CPF ? cpfCnpj_SemMascara : null;
+            return cpfCnpj_SemMascara.Length <= NUMERO_CARACTERE_CPF ? cpfCnpj_SemMascara : null;
         }
 
         private string ObterCnpj(string cpfCnpj)
         {
-            if (cpfCnpj == null)
-                throw new ArgumentNullException(nameof(cpfCnpj));
+            string cpfCnpj_SemMascara = cpfCnpj?.SomenteNumeros();
 
-            string cpfCnpj_SemMascara = RemoverMascaraCpfCnpj(cpfCnpj);
-
-            return cpfCnpj_SemMascara.Length == NUMERO_CARACTERE_CNPJ ? cpfCnpj_SemMascara : null;
-        }
-
-        private string RemoverMascaraCpfCnpj(string cpfCnpj)
-        {
-            if (cpfCnpj == null)
-                throw new ArgumentNullException(nameof(cpfCnpj));
-
-            return Regex.Replace(cpfCnpj, "[^0-9,]", string.Empty);
+            return cpfCnpj_SemMascara.Length > NUMERO_CARACTERE_CPF ? cpfCnpj_SemMascara : null;
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using FirstDecisionDesafioMoises.Infraestructure.Attributes;
+using FirstDecisionDesafioMoises.Infraestructure.Extensions;
 using FirstDecisionDesafioMoises.Models.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,17 @@ namespace FirstDecisionDesafioMoises.Models.Classes
         public string Email { get; set; }
         
         [MaxLength(20)]
-        public string Telefone { get; set; }
+        public string Telefone
+        {
+            get
+            {
+                return this.telefone;
+            }
+            set
+            {
+                this.telefone = value.SomenteNumeros();
+            }
+        } private string telefone { get; set; }
         
         [MaxLength(255)]
         public string Endereco { get; set; }
